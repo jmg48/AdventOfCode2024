@@ -21,9 +21,9 @@ public class Day04 : Aoc
 
         foreach (var word in new[] { "XMAS", "SAMX" })
         {
-            for (int i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
-                for (int j = 0; j < input[i].Length; j++)
+                for (var j = 0; j < input[i].Length; j++)
                 {
                     if (It(i, j) == word[0])
                     {
@@ -57,9 +57,9 @@ public class Day04 : Aoc
         Console.WriteLine(result);
 
         var result2 = 0;
-        for (int i = 0; i < input.Length; i++)
+        for (var i = 0; i < input.Length; i++)
         {
-            for (int j = 0; j < input.Length; j++)
+            for (var j = 0; j < input.Length; j++)
             {
                 if (It(i + 1, j + 1) == 'A')
                 {

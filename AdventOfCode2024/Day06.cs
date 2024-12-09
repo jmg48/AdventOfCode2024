@@ -9,18 +9,11 @@ public class Day06 : Aoc
 
         var visited = new HashSet<Coord>();
 
-        Coord pos = default;
         var dir = Dir.N;
-        for (var i = 0; i < input.Length; i++)
-        {
-            var line = input[i];
-            var j = line.IndexOf('^');
-            if (j != -1)
-            {
-                pos = new Coord(i, j);
-                visited.Add(pos);
-            }
-        }
+        var pos = Enumerable.Range(0, input.Length)
+            .Where(i => input[i].Contains('^'))
+            .Select(i => new Coord(i, input[i].IndexOf('^')))
+            .Single();
 
         while (true)
         {
@@ -57,23 +50,17 @@ public class Day06 : Aoc
     {
         var input = InputLines().ToArray();
 
-        Coord startPos = default;
         var startDir = Dir.N;
-        for (var i = 0; i < input.Length; i++)
-        {
-            var line = input[i];
-            var j = line.IndexOf('^');
-            if (j != -1)
-            {
-                startPos = new Coord(i, j);
-            }
-        }
+        var startPos =  Enumerable.Range(0, input.Length)
+            .Where(i => input[i].Contains('^'))
+            .Select(i => new Coord(i, input[i].IndexOf('^')))
+            .Single();
 
         var loops = 0;
 
-        for (int i = 0; i < input.Length; i++)
+        for (var i = 0; i < input.Length; i++)
         {
-            for (int j = 0; j < input[0].Length; j++)
+            for (var j = 0; j < input[0].Length; j++)
             {
                 if (new Coord(i, j) == startPos)
                 {

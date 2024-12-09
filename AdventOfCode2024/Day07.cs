@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace AdventOfCode2024;
 
 public class Day07 : Aoc

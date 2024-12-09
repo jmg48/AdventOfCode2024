@@ -1,6 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography;
-
 namespace AdventOfCode2024;
 
 public class Day08 : Aoc
@@ -14,9 +11,9 @@ public class Day08 : Aoc
         foreach (var frequency in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         {
             var antennas = new List<Coord>();
-            for (int i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
-                for (int j = 0; j < input[0].Length; j++)
+                for (var j = 0; j < input[0].Length; j++)
                 {
                     if (input[i][j] == frequency)
                     {
@@ -25,9 +22,9 @@ public class Day08 : Aoc
                 }
             }
 
-            for (int i = 0; i < antennas.Count; i++)
+            for (var i = 0; i < antennas.Count; i++)
             {
-                for (int j = 0; j < antennas.Count; j++)
+                for (var j = 0; j < antennas.Count; j++)
                 {
                     if (i == j)
                     {
@@ -36,13 +33,9 @@ public class Day08 : Aoc
 
                     var a = antennas[i];
                     var b = antennas[j];
-                    var dX = (b.X - a.X);
-                    var dY = (b.Y - a.Y);
-                    var antinode = new Coord(b.X + dX, b.Y + dY);
-
+                    var antinode = new Coord(b.X + b.X - a.X, b.Y + b.Y - a.Y);
                     if (antinode.X >= 0 && antinode.Y >= 0 && antinode.X < input.Length && antinode.Y < input[0].Length)
                     {
-                        Console.WriteLine($"{frequency} | {a} | {b} | {antinode}");
                         antinodes.Add(antinode);
                     }
                 }
@@ -61,9 +54,9 @@ public class Day08 : Aoc
         foreach (var frequency in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         {
             var antennas = new List<Coord>();
-            for (int i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
-                for (int j = 0; j < input[0].Length; j++)
+                for (var j = 0; j < input[0].Length; j++)
                 {
                     if (input[i][j] == frequency)
                     {
@@ -72,24 +65,15 @@ public class Day08 : Aoc
                 }
             }
 
-            for (int i = 0; i < antennas.Count; i++)
+            for (var i = 0; i < antennas.Count; i++)
             {
-                for (int j = i + 1; j < antennas.Count; j++)
+                for (var j = i + 1; j < antennas.Count; j++)
                 {
                     var a = antennas[i];
                     var b = antennas[j];
                     
                     var dX = (b.X - a.X);
                     var dY = (b.Y - a.Y);
-
-                    //foreach (var prime in new[]{2,3,5,7,11,13,17,19,23,29,31,37,41,43,47})
-                    //{
-                    //    if (dX % prime == 0 && dY % prime == 0)
-                    //    {
-                    //        dX /= prime;
-                    //        dY /= prime;
-                    //    }
-                    //}
 
                     var antinode = a;
                     while (antinode.X >= 0 && antinode.Y >= 0 && antinode.X < input.Length && antinode.Y < input[0].Length)

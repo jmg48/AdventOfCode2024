@@ -21,10 +21,10 @@ public class Day05 : Aoc
         {
             var valid = true;
             var pages = update.Split(',');
-            for (int i = 0; i < pages.Length; i++)
+            for (var i = 0; i < pages.Length; i++)
             {
                 var firstPage = pages[i];
-                for (int j = i + 1; j < pages.Length; j++)
+                for (var j = i + 1; j < pages.Length; j++)
                 {
                     var secondPage = pages[j];
                     if (orderRules.TryGetValue(secondPage, out var rule))
@@ -56,10 +56,10 @@ public class Day05 : Aoc
             while (!valid)
             {
                 valid = true;
-                for (int i = 0; valid && i < update.Length; i++)
+                for (var i = 0; valid && i < update.Length; i++)
                 {
                     var firstPage = update[i];
-                    for (int j = i + 1; valid && j < update.Length; j++)
+                    for (var j = i + 1; valid && j < update.Length; j++)
                     {
                         var secondPage = update[j];
                         if (orderRules.TryGetValue(secondPage, out var rule))
