@@ -1,5 +1,3 @@
-using FluentAssertions;
-
 namespace AdventOfCode2024;
 
 public class Day12 : Aoc
@@ -22,18 +20,10 @@ public class Day12 : Aoc
 
                 if (part == 2)
                 {
-                    var changed = true;
-                    while (changed)
+                    foreach (var (edge, dir) in perimeter.ToList())
                     {
-                        changed = false;
-                        foreach (var (edge, dir) in perimeter.ToList())
-                        {
-                            var neighbour = (edge.Move(dir.TurnLeft()), dir);
-                            if (perimeter.Remove(neighbour))
-                            {
-                                changed = true;
-                            }
-                        }
+                        var neighbour = (edge.Move(dir.TurnLeft()), dir);
+                        perimeter.Remove(neighbour);
                     }
                 }
 
