@@ -19,7 +19,7 @@ public class Day06 : Aoc
         {
             var nextPos = pos.Move(dir);
 
-            if (nextPos.X < 0 || nextPos.Y < 0 || nextPos.X >= input.Length || nextPos.Y >= input[0].Length)
+            if (!nextPos.IsInBoundsOf(input))
             {
                 break;
             }
@@ -27,13 +27,7 @@ public class Day06 : Aoc
             var isBlocked = input[nextPos.X][nextPos.Y] == '#';
             if (isBlocked)
             {
-                dir = dir switch
-                {
-                    Dir.N => Dir.E,
-                    Dir.S => Dir.W,
-                    Dir.E => Dir.S,
-                    Dir.W => Dir.N
-                };
+                dir = dir.TurnRight();
             }
             else
             {
@@ -81,7 +75,7 @@ public class Day06 : Aoc
                         Dir.W => new Coord(pos.X, pos.Y - 1)
                     };
 
-                    if (nextPos.X < 0 || nextPos.Y < 0 || nextPos.X >= input.Length || nextPos.Y >= input[0].Length)
+                    if (!nextPos.IsInBoundsOf(input))
                     {
                         break;
                     }
@@ -89,26 +83,18 @@ public class Day06 : Aoc
                     var isBlocked = input[nextPos.X][nextPos.Y] == '#' || nextPos.X == i && nextPos.Y == j;
                     if (isBlocked)
                     {
-                        dir = dir switch
-                        {
-                            Dir.N => Dir.E,
-                            Dir.S => Dir.W,
-                            Dir.E => Dir.S,
-                            Dir.W => Dir.N
-                        };
+                        dir = dir.TurnRight();
                     }
                     else
                     {
                         pos = nextPos;
                     }
 
-                    if (visited.Contains((pos, dir)))
+                    if (!visited.Add((pos, dir)))
                     {
                         loops++;
                         break;
                     }
-
-                    visited.Add((pos, dir));
                 }
             }
         }

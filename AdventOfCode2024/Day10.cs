@@ -35,12 +35,14 @@ public class Day10 : Aoc
             foreach (var dir in new[] { Dir.N, Dir.S, Dir.E, Dir.W })
             {
                 var newPos = pos.Move(dir);
-                if (newPos.X >= 0 && newPos.Y >= 0 && newPos.X < input.Count && newPos.Y < input[0].Count)
+                if (!newPos.IsInBoundsOf(input))
                 {
-                    if (input[newPos.X][newPos.Y] == height + 1)
-                    {
-                        score.UnionWith(Score(newPos, height + 1));
-                    }
+                    continue;
+                }
+
+                if (input[newPos.X][newPos.Y] == height + 1)
+                {
+                    score.UnionWith(Score(newPos, height + 1));
                 }
             }
 

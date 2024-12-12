@@ -34,7 +34,7 @@ public class Day08 : Aoc
                     var a = antennas[i];
                     var b = antennas[j];
                     var antinode = new Coord(b.X + b.X - a.X, b.Y + b.Y - a.Y);
-                    if (antinode.X >= 0 && antinode.Y >= 0 && antinode.X < input.Length && antinode.Y < input[0].Length)
+                    if (antinode.IsInBoundsOf(input))
                     {
                         antinodes.Add(antinode);
                     }
@@ -76,14 +76,14 @@ public class Day08 : Aoc
                     var dY = (b.Y - a.Y);
 
                     var antinode = a;
-                    while (antinode.X >= 0 && antinode.Y >= 0 && antinode.X < input.Length && antinode.Y < input[0].Length)
+                    while (antinode.IsInBoundsOf(input))
                     {
                         antinodes.Add(antinode);
                         antinode = new Coord(antinode.X + dX, antinode.Y + dY);
                     }
 
                     antinode = a;
-                    while (antinode.X >= 0 && antinode.Y >= 0 && antinode.X < input.Length && antinode.Y < input[0].Length)
+                    while (antinode.IsInBoundsOf(input))
                     {
                         antinodes.Add(antinode);
                         antinode = new Coord(antinode.X - dX, antinode.Y - dY);

@@ -49,7 +49,7 @@ public class Day12 : Aoc
             foreach (var dir in new[] { Dir.N, Dir.S, Dir.E, Dir.W })
             {
                 var newPos = pos.Move(dir);
-                if (newPos.X < 0 || newPos.Y < 0 || newPos.X >= input.Count || newPos.Y >= input[0].Length)
+                if (!newPos.IsInBoundsOf(input))
                 {
                     perimeter.Add((pos, dir));
                     continue;
