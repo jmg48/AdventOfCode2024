@@ -17,3 +17,5 @@ public record Coord(int X, int Y)
     public bool IsInBoundsOf<T>(IList<List<T>> input)
         => this.X >= 0 && this.Y >= 0 && this.X < input.Count && this.Y < input[0].Count;
 }
+
+public record LongCoord(long X, long Y);
