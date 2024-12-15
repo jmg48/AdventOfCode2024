@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,6 +8,7 @@ namespace AdventOfCode2024;
 
 public class Day15 : Aoc
 {
+    [Test]
     public void Part1()
     {
         var input = InputLines().ToList();
@@ -94,44 +96,6 @@ public class Day15 : Aoc
     {
         var input = InputLines().ToList();
 
-        //input = new List<string>
-        //{
-        //    "##########",
-        //    "#..O..O.O#",
-        //    "#......O.#",
-        //    "#.OO..O.O#",
-        //    "#..O@..O.#",
-        //    "#O#..O...#",
-        //    "#O..O..O.#",
-        //    "#.OO.O.OO#",
-        //    "#....O...#",
-        //    "##########",
-        //    "",
-        //    "<vv>^<v^>v>^vv^v>v<>v^v<v<^vv<<<^><<><>>v<vvv<>^v^>^<<<><<v<<<v^vv^v>^",
-        //    "vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v",
-        //    "><>vv>v^v^<>><>>>><^^>vv>v<^^^>>v^v^<^^>v^^>v^<^v>v<>>v^v^<v>v^^<^^vv<",
-        //    "<<v<^>>^^^^>>>v^<>vvv^><v<<<>^^^vv^<vvv>^>v<^^^^v<>^>vvvv><>>v^<<^^^^^",
-        //    "^><^><>>><>^^<<^^v>>><^<v>^<vv>>v>>>^v><>^v><<<<v>>v<v<v>vvv>^<><<>^><",
-        //    "^>><>^v<><^vvv<^^<><v<<<<<><^v<<<><<<^^<v<^^^><^>>^<v^><<<^>>^v<v^v<v^",
-        //    ">^>>^v>vv>^<<^v<>><<><<v<<v><>v<^vv<<<>^^v^>^^>>><<^v>>v^v><^^>>^<>vv^",
-        //    "<><^^>^^^<><vvvvv^v<v<<>^v<v>v<<^><<><<><<<^^<<<^<<>><<><^^^>^^<>^>v<>",
-        //    "^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>",
-        //    "v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^",
-        //};
-
-        //input = new List<string>
-        //{
-        //    "#######",
-        //    "#...#.#",
-        //    "#.....#",
-        //    "#..OO@#",
-        //    "#..O..#",
-        //    "#.....#",
-        //    "#######",
-        //    "",
-        //    "<vv<<^^<<^^",
-        //};
-
         var map = new List<List<char>>();
         var route = new List<Dir>();
         Coord startPos = default;
@@ -181,33 +145,15 @@ public class Day15 : Aoc
 
         bool TryMove(Coord pos, Dir dir)
         {
-            switch (dir)
-            {
-                case Dir.E:
-                case Dir.W:
-                    var checkPos = pos;
-                    while (checkPos.IsInBoundsOf(map) && new[] { '@', '[',']' }.Contains(map[checkPos.X][checkPos.Y]))
-                    {
-                        checkPos = checkPos.Move(dir);
-                    }
-
-                    if (map[checkPos.X][checkPos.Y] == '#')
-                    {
-                        return false;
-                    }
-
-                    var unDir = dir.TurnBack();
-                    while (checkPos != pos)
-                    {
-                        var backPos = checkPos.Move(unDir);
-                        Swap(checkPos, backPos);
-                        checkPos = backPos;
-                    }
-
-                    return true;
-            }
-
             var toMove = new List<Coord> { pos };
+            var isVerticalMove = dir switch
+            {
+                Dir.N => true,
+                Dir.S => true,
+                Dir.E => false,
+                Dir.W => false,
+            };
+
             for (int i = 0; i < toMove.Count; i++)
             {
                 var toCheck = toMove[i];
@@ -220,11 +166,19 @@ public class Day15 : Aoc
                         break;
                     case '[':
                         toMove.Add(moved);
-                        toMove.Add(moved.Move(Dir.E));
+                        if (isVerticalMove)
+                        {
+                            toMove.Add(moved.Move(Dir.E));
+                        }
+
                         break;
                     case ']':
                         toMove.Add(moved);
-                        toMove.Add(moved.Move(Dir.W));
+                        if (isVerticalMove)
+                        {
+                            toMove.Add(moved.Move(Dir.W));
+                        }
+
                         break;
                 }
             }
@@ -248,18 +202,6 @@ public class Day15 : Aoc
             {
                 pos = pos.Move(dir);
             }
-
-            //for (int i = 0; i < map.Count; i++)
-            //{
-            //    for (int j = 0; j < map[i].Count; j++)
-            //    {
-            //        Console.Write(map[i][j]);
-            //    }
-
-            //    Console.WriteLine();
-            //}
-
-            //Console.WriteLine();
         }
 
         var result = 0;
