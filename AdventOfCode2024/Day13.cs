@@ -13,7 +13,7 @@ public class Day13 : Aoc
         var input = InputLines().ToList();
 
         var games = new List<(Coord A, Coord B, LongCoord P)>();
-        for (int i = 0; i < input.Count; i+=4)
+        for (var i = 0; i < input.Count; i+=4)
         {
             var matchA = Regex.Match(input[i], @"Button A: X\+(\d+), Y\+(\d+)");
             var a = new Coord(int.Parse(matchA.Groups[1].Value), int.Parse(matchA.Groups[2].Value));

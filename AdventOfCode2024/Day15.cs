@@ -1,7 +1,3 @@
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
 using FluentAssertions;
 
 namespace AdventOfCode2024;
@@ -75,9 +71,9 @@ public class Day15 : Aoc
         }
 
         var result = 0;
-        for (int i = 0; i < map.Count; i++)
+        for (var i = 0; i < map.Count; i++)
         {
-            for (int j = 0; j < map[i].Count; j++)
+            for (var j = 0; j < map[i].Count; j++)
             {
                 if (map[i][j] == 'O')
                 {
@@ -154,7 +150,7 @@ public class Day15 : Aoc
                 Dir.W => false,
             };
 
-            for (int i = 0; i < toMove.Count; i++)
+            for (var i = 0; i < toMove.Count; i++)
             {
                 var toCheck = toMove[i];
                 var moved = toCheck.Move(dir);
@@ -184,7 +180,7 @@ public class Day15 : Aoc
             }
 
             var distinct = new HashSet<Coord>();
-            for (int i = toMove.Count - 1; i >= 0; i--)
+            for (var i = toMove.Count - 1; i >= 0; i--)
             {
                 if (distinct.Add(toMove[i]))
                 {
@@ -205,9 +201,9 @@ public class Day15 : Aoc
         }
 
         var result = 0;
-        for (int i = 0; i < map.Count; i++)
+        for (var i = 0; i < map.Count; i++)
         {
-            for (int j = 0; j < map[i].Count; j++)
+            for (var j = 0; j < map[i].Count; j++)
             {
                 if (map[i][j] == '[')
                 {

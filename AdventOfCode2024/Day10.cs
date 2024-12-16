@@ -10,9 +10,9 @@ public class Day10 : Aoc
         var input = inputLines.Select(it => it.Select(it => it - '0').ToList()).ToList();
 
         var result = 0;
-        for (int i = 0; i < input.Count; i++)
+        for (var i = 0; i < input.Count; i++)
         {
-            for (int j = 0; j < input[0].Count; j++)
+            for (var j = 0; j < input[0].Count; j++)
             {
                 if (input[i][j] == 0)
                 {
@@ -58,9 +58,9 @@ public class Day10 : Aoc
         var input = inputLines.Select(it => it.Select(it => it - '0').ToList()).ToList();
 
         var result = 0;
-        for (int i = 0; i < input.Count; i++)
+        for (var i = 0; i < input.Count; i++)
         {
-            for (int j = 0; j < input[0].Count; j++)
+            for (var j = 0; j < input[0].Count; j++)
             {
                 if (input[i][j] == 0)
                 {
