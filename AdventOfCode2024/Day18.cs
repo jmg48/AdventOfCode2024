@@ -1,5 +1,3 @@
-using FluentAssertions;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode2024;
@@ -9,6 +7,8 @@ public class Day18 : Aoc
     [Test]
     public void Part()
     {
+        var size = 70;
+
         var allBytes = InputLines()
             .Select(it =>
             {
@@ -16,18 +16,34 @@ public class Day18 : Aoc
                 return new Coord(int.Parse(match.Groups[1].Value), int.Parse(match.Groups[2].Value));
             }).ToList();
 
-        for (var i = 0; i < allBytes.Count; i++)
+        Console.WriteLine($"Part One: {PathLength(1024)}");
+
+        var increment = 1;
+        while (increment < allBytes.Count) {
+            increment *= 2;
+        }
+
+        var i = increment;
+        while(increment > 1)
+        {
+            var isBlocked = PathLength(i) == -1;
+            increment /= 2;
+            i += isBlocked ? -increment : increment;
+        }
+
+        Console.WriteLine($"Part Two: {allBytes[i - 1]}");
+
+        return;
+
+        int PathLength(int i)
         {
             var bytes = new HashSet<Coord>(allBytes.Take(i));
-
-            var size = 70;
 
             var start = new Coord(0, 0);
             var endPos = new Coord(size, size);
 
             var visited = new Dictionary<Coord, int>();
-            var unVisited = new Dictionary<Coord, int>();
-            unVisited.Add(start, 0);
+            var unVisited = new Dictionary<Coord, int> { { start, 0 } };
 
             while (unVisited.Count > 0)
             {
@@ -62,16 +78,7 @@ public class Day18 : Aoc
                 }
             }
 
-            if(i == 1024)
-            {
-                Console.WriteLine($"Part One: {visited[endPos]}");
-            }
-
-            if (!visited.ContainsKey(endPos))
-            {
-                Console.WriteLine($"Part Two: {allBytes.Take(i).Last()}");
-                return;
-            }
+            return visited.GetValueOrDefault(endPos, -1);
         }
     }
 }
